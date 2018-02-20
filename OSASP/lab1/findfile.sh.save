@@ -1,0 +1,2 @@
+find $2 -maxdepth 0
+ -type f -name "*$3" >> $1

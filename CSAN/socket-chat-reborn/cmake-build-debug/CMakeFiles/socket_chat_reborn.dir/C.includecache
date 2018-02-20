@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/devvindan/Projects/labs/CSAN/socket-chat-reborn/client.c
+stdio.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+unistd.h
+-
+string.h
+-
+stdlib.h
+-
+pthread.h
+/home/devvindan/Projects/labs/CSAN/socket-chat-reborn/pthread.h
+arpa/inet.h
+-
+
+/home/devvindan/Projects/labs/CSAN/socket-chat-reborn/server.c
+stdio.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+unistd.h
+-
+string.h
+-
+stdlib.h
+-
+pthread.h
+/home/devvindan/Projects/labs/CSAN/socket-chat-reborn/pthread.h
+

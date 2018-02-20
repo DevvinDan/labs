@@ -1,0 +1,3 @@
+/home/devvindan/Projects/labs/CSAN/socket-chat-reborn/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/devvindan/Projects/labs/CSAN/socket-chat-reborn/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/devvindan/Projects/labs/CSAN/socket-chat-reborn/cmake-build-debug/CMakeFiles/socket_chat_reborn.dir

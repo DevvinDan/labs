@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/socket_chat.dir/server.cpp.o CMakeFiles/socket_chat.dir/client.cpp.o  -o socket_chat 

@@ -1,0 +1,52 @@
+Name: textfile.txt
+Size: 13
+Date: 15.02.2018
+
+Name: readstrings.c
+Size: 907
+Date: 14.02.2018
+
+Name: file.txt
+Size: 0
+Date: 15.02.2018
+
+Name: another.txt
+Size: 0
+Date: 15.02.2018
+
+Name: anotherinnerfile.txt
+Size: 0
+Date: 15.02.2018
+
+Name: readcatalogs.c
+Size: 2243
+Date: 15.02.2018
+
+Name: readroot
+Size: 8984
+Date: 15.02.2018
+
+Name: myfile.txt
+Size: 4
+Date: 14.02.2018
+
+Name: readinput
+Size: 8976
+Date: 15.02.2018
+
+Name: logfile.txt
+Size: 0
+Date: 15.02.2018
+
+Name: readinput.c
+Size: 573
+Date: 15.02.2018
+
+Name: copyfile.c
+Size: 910
+Date: 14.02.2018
+
+Name: .prog.c.swp
+Size: 1024
+Date: 14.02.2018
+
