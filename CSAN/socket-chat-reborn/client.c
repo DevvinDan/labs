@@ -71,10 +71,11 @@ int main(int argc, char *argv[]){
 
     // Asks user to enter username, sends it to server
 
-    printf("Enter your username (%d chars max): ", USERNAME_SIZE);
     bool correctUsername = false;
 
     while (!correctUsername){
+
+        printf("Enter your username (%d chars max): ", USERNAME_SIZE);
         fgets(username, USERNAME_SIZE, stdin);
         if (strlen(username) > 0){
 
@@ -82,14 +83,23 @@ int main(int argc, char *argv[]){
             if ((pos = strchr(username, '\n')) != NULL){
                 *pos = '\0';
             }
-            correctUsername = true;
+
+            write(server, username, USERNAME_SIZE);
+
+            // If everything is OK, server returns OK
+
+            read(server, buffer, BUF_SIZE);
+
+            if (!strcmp(buffer, "OK")){
+                correctUsername = true;
+            } else {
+                printf("User with this username already logged in.\n");
+            }
+
         } else {
             printf("Please, input valid username: ");
         }
     }
-
-    write(server, username, USERNAME_SIZE);
-
 
     // Creating a thread to asynchronously read messages from server
 

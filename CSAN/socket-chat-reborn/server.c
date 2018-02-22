@@ -21,6 +21,8 @@ typedef struct arguments {
 } arguments;
 
 
+char *usernames[USER_TABLE_SIZE];
+
 // Sending message to each user in the table
 
 void broadcastMessage(int *table, char *message){
@@ -60,6 +62,14 @@ void *handleConnection(void *ptr){
     for (int i = 0; i < USER_TABLE_SIZE; i++){
         if (userTable[i] == client){
             userTable[i] = 0;
+            break;
+        }
+    }
+
+    for (int i = 0; i < USER_TABLE_SIZE; i++){
+        if (!strcmp(usernames[i], username)){
+            strcmp(usernames[i], "");
+            break;
         }
     }
 
@@ -67,6 +77,20 @@ void *handleConnection(void *ptr){
 
     close(client);
 
+
+}
+
+bool userExists(char *username){
+
+    for (int i = 0; i < USER_TABLE_SIZE; i++){
+
+        if (!strcmp(username, usernames[i])){
+            return true;
+        }
+
+    }
+
+    return false;
 
 }
 
@@ -80,7 +104,11 @@ int main(int argc, char* argv[]) {
     int server, client; // Descriptors
     int port;
     int user_table[USER_TABLE_SIZE] = { 0 };
+    char alert[BUF_SIZE];
 
+    for (int i = 0; i < USER_TABLE_SIZE; i++){
+        usernames[i] = "";
+    }
 
     struct sockaddr_in server_address, client_address;
 
@@ -123,9 +151,34 @@ int main(int argc, char* argv[]) {
 
         // Getting username and notifying other users
 
+        bool correctName = false;
+
         char username[USERNAME_SIZE];
-        read(client, username, USERNAME_SIZE);
-        char alert[BUF_SIZE];
+
+        while (!correctName){
+
+            read(client, username, USERNAME_SIZE);
+
+            if (!userExists){
+                sprintf(alert, "OK");
+                correctName = true;
+            } else {
+                sprintf(alert, "ERROR");
+            }
+
+            write(client, alert, BUF_SIZE);
+        }
+
+        for (int i = 0; i < USER_TABLE_SIZE; i++){
+
+            if (!strcmp(usernames[i], "")){
+                strcpy(usernames[i], username);
+                break;
+            }
+
+        }
+
+
         sprintf(alert, "User connected: %s\n", username);
         printf("%s", alert);
         broadcastMessage(user_table, alert);
@@ -138,6 +191,7 @@ int main(int argc, char* argv[]) {
                 break;
             }
         }
+
 
         // Creating arguments structure to pass into new thread
 
