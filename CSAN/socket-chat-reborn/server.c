@@ -21,7 +21,7 @@ typedef struct arguments {
 } arguments;
 
 
-char *usernames[USER_TABLE_SIZE];
+char usernames[USER_TABLE_SIZE][USERNAME_SIZE];
 
 // Sending message to each user in the table
 
@@ -68,7 +68,7 @@ void *handleConnection(void *ptr){
 
     for (int i = 0; i < USER_TABLE_SIZE; i++){
         if (!strcmp(usernames[i], username)){
-            strcmp(usernames[i], "");
+            strcpy(usernames[i], "");
             break;
         }
     }
@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
     char alert[BUF_SIZE];
 
     for (int i = 0; i < USER_TABLE_SIZE; i++){
-        usernames[i] = "";
+        strcpy(usernames[i], "");
     }
 
     struct sockaddr_in server_address, client_address;
@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) {
 
             read(client, username, USERNAME_SIZE);
 
-            if (!userExists){
+            if (!userExists(username)){
                 sprintf(alert, "OK");
                 correctName = true;
             } else {
@@ -177,7 +177,6 @@ int main(int argc, char* argv[]) {
             }
 
         }
-
 
         sprintf(alert, "User connected: %s\n", username);
         printf("%s", alert);
