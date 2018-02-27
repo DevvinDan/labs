@@ -30,7 +30,7 @@ bool compareFiles(char *filePath1, char *filePath2, int *totalBytes){
         }
         int c1 = fgetc(file1);
         int c2 = fgetc(file2);
-        *totalBytes++;
+        *totalBytes = *totalBytes + 1;
         if (c1 != c2){
             fclose(file1);
             fclose(file2);
@@ -62,6 +62,7 @@ void main(int argc, char *argv[]){
 
     char files1[MAX_FILES][FILE_NAME_SIZE];
     char files2[MAX_FILES][FILE_NAME_SIZE];
+
 
     DIR *firstDir = opendir(dir1);
     DIR *secondDir = opendir(dir2);
@@ -110,7 +111,7 @@ void main(int argc, char *argv[]){
             if (pid == 0){
                 int totalBytes = 0;
                 bool equal = compareFiles(files1[i], files2[j], &totalBytes);
-                printf("PID: %d PPID: %d COMPARING: %s %s BYTES COMPARED: %d RESULT: %s", getpid(), getppid(), files1[i], files2[j], totalBytes, equal ? "TRUE" : "FALSE");
+                printf("PID: %d PPID: %d COMPARING: %s %s BYTES COMPARED: %d RESULT: %s\n", getpid(), getppid(), files1[i], files2[j], totalBytes, equal ? "EQUAL" : "NOT EQUAL");
                 exit(0);
             } else if (pid > 0){
                 runningProcesses++;
@@ -124,6 +125,5 @@ void main(int argc, char *argv[]){
             }
         }
     }
-
 
 }
