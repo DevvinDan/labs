@@ -1,22 +1,17 @@
-#include <stdio.h>
-#include <unistd.h>
+#include <stdlib.h>
 #include <sys/types.h>
-#include <wait.h>
+#include <unistd.h>
 
+int main ()
+{
+  pid_t child_pid;
 
-
-int main(){
-	
-	int arr[3];
-	int status;
-	pid_t pid;
-	pid = fork();
-	if (pid == 0){
-		arr[0] = getpid();
-		printf("Inside child process, arr[0] = %d", arr[0]);
-	} else {
-		wait(&status);
-		printf("Exited, arr[0] = %d", arr[0]);
-	}
-
+  child_pid = fork ();
+  if (child_pid > 0) {
+    sleep (60);
+  }
+  else {
+    exit (0);
+  }
+  return 0;
 }
