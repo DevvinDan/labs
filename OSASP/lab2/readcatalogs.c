@@ -23,6 +23,7 @@ void readDirectory(char *path, int min, int max, time_t left, time_t right, FILE
 		return;
 	}
 
+
 	struct dirent *content;
 	struct stat fileStats;
 	strcat(path, "/");
@@ -39,7 +40,7 @@ void readDirectory(char *path, int min, int max, time_t left, time_t right, FILE
 				readDirectory(filePath, min, max, left, right, logs);
 			}
 		} else {
-			char date[36];
+			char date[100];
 			formatdate(date, fileStats.st_ctime);
 			if ( !(fileStats.st_size < min || fileStats.st_size > max) && (difftime(fileStats.st_ctime, left) >= 0) && (difftime(fileStats.st_ctime, right) < 0) ){
 				printf("Name: %s\nSize: %lu\nDate: %s\n\n", content->d_name, fileStats.st_size, date);
@@ -68,7 +69,7 @@ int main(int argc, char *argv[]){
 		printf("Error. Can't open file.\n");
 		return -1;
 	}	
-	
+
 
 	struct tm timeStruct;
 	strptime(minDate, "%d.%m.%Y", &timeStruct);
