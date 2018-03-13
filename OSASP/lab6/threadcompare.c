@@ -11,9 +11,9 @@
 #define bool char
 #define true 1
 #define false 0
-#define BUF_SIZE 1024
-#define MAX_FILES 100
-#define FILE_NAME_SIZE 500
+#define BUF_SIZE 200
+#define MAX_FILES 400
+#define FILE_NAME_SIZE 100
 
 typedef struct arguments {
     char filePath1[FILE_NAME_SIZE];
@@ -70,8 +70,9 @@ void error(char *msg){
 void main(int argc, char *argv[]){
 
     if (argc < 4){
-        error("Enter correct number of arguments");
+        error("Enter correct number of arguments!");
     }
+
 
     char *dir1 = argv[1];
     char *dir2 = argv[2];
@@ -109,6 +110,7 @@ void main(int argc, char *argv[]){
 
     while ((sdFileInfo = readdir(secondDir)) != NULL){
 
+	printf("count: %i\n", filesCount2);
         if (sdFileInfo->d_type == DT_REG){
 
             strcpy(files2[filesCount2], dir2);
@@ -121,8 +123,10 @@ void main(int argc, char *argv[]){
     }
 
 	int filesSum = filesCount1 * filesCount2;
+
 	arguments args[filesSum];
 	int countPointer = 0;
+
 
     for (int i = 0; i < filesCount1; i++){
         for (int j = 0; j < filesCount2; j++){
@@ -134,7 +138,7 @@ void main(int argc, char *argv[]){
                 // wait until one of the threads ends
             }
 
-	   	    runningThreads++;
+	   	runningThreads++;
 	        pthread_t newThread;
 
             if ( (pthread_create(&newThread, NULL, &compareFiles, (void *) &args[countPointer])) ){

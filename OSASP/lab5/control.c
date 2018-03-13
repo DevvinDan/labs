@@ -13,7 +13,6 @@
 #define true 1
 #define false 0
 #define BUF_SIZE 256
-#define NUMBER_OF_SENDERS 3
 
 
 pid_t process1, process2, process3, wpid;
