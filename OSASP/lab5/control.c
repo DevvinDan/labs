@@ -6,6 +6,8 @@
 #include <signal.h>
 #include <math.h>
 #include <stdio.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define bool char
 #define true 1
@@ -14,7 +16,7 @@
 #define NUMBER_OF_SENDERS 3
 
 
-pid_t process1, process2, process3;
+pid_t process1, process2, process3, wpid;
 
 
 int getCurrentTime(){
@@ -72,7 +74,10 @@ int main(){
 
 		} while(notFinished);
 
+		printf("DONE process1\n");
+
 		close(p1pipes[0]);
+		exit(0);
 
 
 	} else {
@@ -102,7 +107,10 @@ int main(){
 
 		} while(notFinished);
 
+		printf("DONE process2\n");
+
 		close(p2pipes[0]);
+		exit(0);
 
 
 	} else {
@@ -125,19 +133,21 @@ int main(){
 				read(p3pipes[0], buf, BUF_SIZE);
 				printf("Process 3 got data: %s\n", buf);
 			}
+			read(control3[0], buf, BUF_SIZE);
+			if (!strcmp(buf, "STOP")){
+				notFinished = false;
+			}
 
 		} while(notFinished);
 
-		read(control3[0], buf, BUF_SIZE);
-		if (!strcmp(buf, "STOP")){
-			notFinished = false;
-		}
+		printf("DONE process3\n");
 
 		close(p3pipes[0]);
+		exit(0);
 
 	} else {
 	}	
-
+		int status = 0;
 		// inside the control process
 		printf("Control going to sleep...\n");
 		strcpy(buf, "OK");
@@ -146,14 +156,15 @@ int main(){
 			write(control2[1], buf, BUF_SIZE);
 			write(control3[1], buf, BUF_SIZE);
 			sleep(1);	
-			if (i == 4){
+			if (i == 3){
 				strcpy(buf, "STOP");
 			}		
 		}
 		
 
 		printf("Sent STOP signal...\n");
-		sleep(4);
+		while ((wpid = wait(&status)) > 0);
+		exit(0);
 
 	}
 
