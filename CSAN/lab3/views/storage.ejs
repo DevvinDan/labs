@@ -1,0 +1,72 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/static/manipulation.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">File Storage</a>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container">
+
+    <h1>Welcome!</h1>
+    <br>
+
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <form name="uploadForm" enctype="multipart/form-data" action="/files/upload" method="post">
+                <input id="file-upload" name="recfile" type="file" style="display: none"/>
+                <input type="hidden" name="path"/>
+            </form>
+            <button type="button" id="upload-button" class="btn btn-primary">Upload</button>
+            <button type="button" id="delete-button" class="btn btn-primary">Delete</button>
+            <button type="button" id="copy-button" class="btn btn-primary">Copy</button>
+            <button type="button" id="paste-button" class="btn btn-primary">Paste</button>
+            <button type="button" id="back-button" class="btn">Back</button>
+        </div>
+    </div>
+
+    <table class="table" id="user-table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i < folders.length; i++) { %>
+        <tr class="clickable-row">
+            <td><%= i + 1 %>%></td>
+            <td><a href="<%= folders[i].name %>"><%= folders[i].name %></a></td>
+            <td><%= folders[i].size%></td>
+        </tr>
+        <% } %>
+        <% for(var i=0; i < files.length; i++) { %>
+        <tr class="clickable-row file-names">
+            <td><%= i + 1 %>%></td>
+            <td><%= files[i].name %></td>
+            <td><%= files[i].size%></td>
+        </tr>
+        <% } %>
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>
