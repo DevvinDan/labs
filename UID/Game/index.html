@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
+</head>
+<body>
+    <dialog id="dialog">
+        <h3>Choose difficulty:</h3>
+        <select class="styled-select" required id="chooseLevel">
+            <option value="8">Easy</option>
+            <option value="16">Medium</option>
+            <option value="24">Hard</option>
+        </select>
+
+        <h3>Input your name:</h3>
+        <input class="input" type="text" placeholder="Anonymous Camel" id="nickName">
+        <button id="startGame" class="button">Start game</button>
+    </dialog>
+    <section>
+        <div  class="textBlock" id="timer"></div>
+    </section>
+    <section class="gameSpace" id="gameSpace">
+    </section>
+    <script src="main.js"></script>
+    <section>
+        <div class="textBlock" id="newGame">New game</div>
+    </section>
+</body>
+</html>

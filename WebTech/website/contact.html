@@ -12,7 +12,7 @@
 <body>
 <header>
     <div class="container clearfix">
-        <a href="index.html">
+        <a href="index.php">
             <div class="header-name clearfix">
                 <img class="logo" src="img/logo.png">
                 <h1 class="brand"><span>Rocket</span> Soft</h1>
@@ -21,11 +21,12 @@
         </a>
         <nav>
             <ul class="menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="team.html">Team</a></li>
-                <li><a href="technology.html">Technologies</a></li>
-                <li><a class="active" href="contact.html">Contact</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="team.php">Team</a></li>
+                <li><a href="technology.php">Technologies</a></li>
+                <li><a class="active" href="contact.php">Labs</a></li>
+                <li class="contact-button"><a href="news.php">News</a></li>
             </ul>
         </nav>
     </div>
@@ -33,32 +34,41 @@
 
 <section class="intro">
     <div class="container">
-        <h1>Обратная связь</h1>
+        <h1>Лабораторные</h1>
     </div>
 
 </section>
 
 <section class="about contact">
     <div class="container">
-        <h1>Напишите нам</h1>
-        <div class="container">
-            <form method="get" action="index.html">
-                <label>Имя:</label><br>
-                <input type="text" name="name"><br>
-                <label>Адрес электронной почты:<label><br>
-                <input type="email" name="mail"><br>
-                <label>Сообщение:</label><br>
-                <textarea name="text" rows="20" cols="40">
 
-                </textarea><br>
+        <h1>Введите число</h1>
+        <div class="container">
+            <form method="get" action="numbers.php">
+                Число: <input style="width: 300px" type="number" name="number"><br>
+                <input type="radio" name="language" value="rus" checked> Русский<br>
+                <input type="radio" name="language" value="eng"> English<br>
                 <input type="submit" value="Отправить">
             </form>
         </div>
+        <br><hr>
+        <h1>Введите произвольную строку</h1>
+        <div class="container">
+            <form method="get" action="lab4.php">
+                Строка: <input style="width: 300px" type="text" name="text"><br>
+                <input type="submit" value="Отправить">
+            </form>
+        </div>
+        <br><hr>
+        <a style="text-decoration: none" href="lab5.php"><h1>Просмотр баз данных</h1></a>
+
     </div>
 </section>
 
 <footer>
-    <p>Rocket Soft, Copyright &copy; 2018</p>
+    <p>Rocket Soft, Copyright &copy; <?php echo $year ?></p>
 </footer>
 </body>
 </html>
+
+

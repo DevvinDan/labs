@@ -4,10 +4,6 @@ const app = express();
 const storageFolder = "./files/";
 const fileUpload = require('express-fileupload');
 
-
-
-
-
 app.use("/static", express.static(__dirname + '/static'));
 app.use(fileUpload());
 
@@ -62,7 +58,9 @@ app.post('/delete', (req, res) => {
         path += "/";
     }
     fileNames.forEach((name) => {
-       fs.unlinkSync(path + name);
+       if (fs.existsSync(path + name)){
+           fs.unlinkSync(path + name);
+       }
     });
 
     res.redirect('/' + path);
@@ -79,17 +77,65 @@ app.post('/copy', (req, res) => {
 
     // Clear copy directory
 
-    fs.readdir("./copy", (err, files) => {
-        files.forEach((file) => {
-            fs.unlinkSync(path + file);
-        })
+    files = fs.readdirSync("./copy");
+
+    files.forEach((file) => {
+        fs.unlinkSync("./copy/" + file);
     });
 
-    console.log(fileNames);
+    fileNames.forEach((name) => {
+        fs.createReadStream(path + name).pipe(fs.createWriteStream('./copy/' + name));
+    });
+
+    res.redirect("/" + path);
+
+});
+
+app.post('/paste', (req, res) => {
+
+    let path = req.body.path.slice(1);
+    if (path[path.length - 1] !== '/'){
+        path += "/";
+    }
+
+    fs.readdir("./copy", (err, files) => {
+        files.forEach((name) => {
+            fs.createReadStream('./copy/' + name).pipe(fs.createWriteStream(path + name));
+        });
+    });
+
+    res.redirect("/" + path);
+
+});
+
+app.post('/cut', (req, res) => {
+
+    fileNames = JSON.parse(req.body.fileNames);
+
+    let path = req.body.path.slice(1);
+    if (path[path.length - 1] !== '/'){
+        path += "/";
+    }
+
+    // Copy files and delete them after copying
+
+    files = fs.readdirSync("./copy");
+
+    files.forEach((file) => {
+        if (fs.existsSync("./copy/" + file)){
+            fs.unlinkSync("./copy/" + file);
+        }
+    });
 
     fileNames.forEach((name) => {
+        fs.createReadStream(path + name).pipe(fs.createWriteStream('./copy/' + name));
+        if (fs.existsSync(path + name)){
+            fs.unlinkSync(path + name);
+        }
+    });
 
-    })
+    res.redirect("/" + path);
+
 
 });
 

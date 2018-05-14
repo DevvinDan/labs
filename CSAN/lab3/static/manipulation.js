@@ -96,6 +96,57 @@ $(document).ready(function(){
 
     }
 
+    function pasteFiles(path){
+
+        var form = $('<form></form>');
+
+        form.attr("method", "post");
+        form.attr("action", "/paste");
+        form.attr("enctype", "multipart/form-data");
+
+        var params = $('<input />');
+
+        params.attr("type", "hidden");
+        params.attr("name", "path");
+        params.attr("value", path);
+
+        form.append(params);
+
+        $(document.body).append(form);
+        form.submit();
+
+    }
+
+    function cutFiles(path, files){
+
+        var form = $('<form></form>');
+
+        form.attr("method", "post");
+        form.attr("action", "/cut");
+        form.attr("enctype", "multipart/form-data");
+
+        var field = $('<input />');
+        var params = $('<input />');
+
+        var str = JSON.stringify(files);
+
+        field.attr("type", "hidden");
+        field.attr("name", "fileNames");
+        field.attr("value", str);
+
+        form.append(field);
+
+        params.attr("type", "hidden");
+        params.attr("name", "path");
+        params.attr("value", path);
+
+        form.append(params);
+
+        $(document.body).append(form);
+        form.submit();
+
+    }
+
     $('#back-button').click(function () {
        let path = window.location.href.split('/');
        console.log(path);
@@ -135,6 +186,21 @@ $(document).ready(function(){
         }
         namesArray = getSelectedFiles();
         copyFiles(window.location.pathname, namesArray);
+    })
+
+    $('#paste-button').click(function () {
+        if ($(this).hasClass('disabled')){
+            return;
+        }
+        pasteFiles(window.location.pathname);
+    })
+
+    $('#cut-button').click(function(){
+        if ($(this).hasClass('disabled')){
+            return;
+        }
+        namesArray = getSelectedFiles();
+        cutFiles(window.location.pathname, namesArray);
     })
 
 
